@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go Self Drive Nagpur Car Rental</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: { DEFAULT: '#FF6B00', light: '#FFF3E8', dark: '#CC5500' },
+        surface: '#111318',
+        card: '#1A1D24',
+        accent: '#00D4AA',
+      }
+    }
+  }
+}
+</script>
+  <style>
+html, body { height: 100%; margin: 0; }
+* { box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-family: var(--heading-font, 'Outfit'), sans-serif; }
+
+.app-wrapper { height: 100%; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideIn { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 20px rgba(255,107,0,0.3); } 50% { box-shadow: 0 0 40px rgba(255,107,0,0.6); } }
+@keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
+@keyframes counter { from { opacity:0; transform:scale(0.5); } to { opacity:1; transform:scale(1); } }
+
+.anim-fade-up { animation: fadeUp 0.7s ease-out both; }
+.anim-slide-in { animation: slideIn 0.6s ease-out both; }
+.anim-float { animation: float 3s ease-in-out infinite; }
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.anim-counter { animation: counter 0.5s ease-out both; }
+
+.hero-gradient { background: linear-gradient(135deg, #111318 0%, #1a1520 40%, #201518 70%, #111318 100%); }
+.card-hover { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+.card-hover:hover { transform: translateY(-8px); }
+
+.gallery-img { cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+.gallery-img:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(255,107,0,0.2); }
+
+.lightbox { position: fixed; inset:0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; align-items: center; justify-content: center; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90%; max-height: 80%; object-fit: contain; border-radius: 12px; }
+
+.wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
+
+.step-line { position: absolute; left: 28px; top: 60px; bottom: 0; width: 2px; background: linear-gradient(to bottom, #FF6B00, transparent); }
+
+.nav-link { position: relative; }
+.nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:#FF6B00; transition:width 0.3s; }
+.nav-link:hover::after { width:100%; }
+
+input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 2px #FF6B00; }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-surface text-gray-200">
+  <div class="app-wrapper" id="app-wrapper"><!-- NAV -->
+   <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background:transparent;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between"><a href="#hero" class="flex items-center gap-2"> <img src="https://instagram.fpat2-8.fna.fbcdn.net/v/t51.82787-19/673858535_380882_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&amp;_nc_ht=instagram.fpat2-8.fna.fbcdn.net&amp;_nc_cat=103&amp;_nc_oc=Q6cZ2gHsPHr_cU5AkbrG4FYADBSacBHp49IGArF4lTvNwhI3tjT_8uBGRa8FnRfg6P-ftqs&amp;_nc_ohc=DjhJsHIAgXUQ7kNvwHLXg13&amp;_nc_gid=W3cmgEar6XrvnOfCbWKPMw&amp;edm=AP4sbd4BAAAA&amp;ccb=7-5&amp;oh=00_Af6pwomGEqmsKGSvCo_sQGqnoI7tjDeBUeC48oaPmMO7nQ&amp;oe=6A0CE30F&amp;_nc_sid=7a9f4b" alt="Go Self Drive Nagpur Logo" class="w-10 h-10 rounded-full object-cover shadow-lg" loading="lazy" onerror="console.error('Logo failed:', this.src); this.style.background='#FF6B00'; this.alt='Logo unavailable';"><span class="font-bold text-lg text-white" style="font-family:Outfit,sans-serif;">Go Self Drive</span> </a>
+     <div class="hidden md:flex items-center gap-6 text-sm font-medium"><a href="#about" class="nav-link text-gray-300 hover:text-white">About</a> <a href="#services" class="nav-link text-gray-300 hover:text-white">Services</a> <a href="#why" class="nav-link text-gray-300 hover:text-white">Why Us</a> <a href="#gallery" class="nav-link text-gray-300 hover:text-white">Gallery</a> <a href="#how" class="nav-link text-gray-300 hover:text-white">How It Works</a> <a href="#contact" class="px-5 py-2 bg-brand rounded-full text-white font-semibold hover:bg-brand-dark transition-colors text-sm">Book Now</a>
+     </div><button id="mob-toggle" class="md:hidden text-white"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </div>
+    <div id="mob-menu" class="hidden md:hidden bg-card/95 backdrop-blur-lg border-t border-white/5 px-6 py-4 flex flex-col gap-3 text-sm font-medium"><a href="#about" class="text-gray-300 hover:text-white py-2" onclick="closeMob()">About</a> <a href="#services" class="text-gray-300 hover:text-white py-2" onclick="closeMob()">Services</a> <a href="#why" class="text-gray-300 hover:text-white py-2" onclick="closeMob()">Why Us</a> <a href="#gallery" class="text-gray-300 hover:text-white py-2" onclick="closeMob()">Gallery</a> <a href="#how" class="text-gray-300 hover:text-white py-2" onclick="closeMob()">How It Works</a> <a href="#contact" class="bg-brand rounded-full text-center py-2 text-white font-semibold" onclick="closeMob()">Book Now</a>
+    </div>
+   </nav><!-- HERO -->
+   <section id="hero" class="hero-gradient relative overflow-hidden" style="min-height:100%;">
+    <div class="absolute inset-0 opacity-20">
+     <div class="absolute top-20 right-10 w-72 h-72 bg-brand rounded-full blur-[120px]"></div>
+     <div class="absolute bottom-10 left-20 w-60 h-60 bg-accent rounded-full blur-[100px]"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-8" style="padding-top:120px; padding-bottom:60px;">
+     <div class="flex-1 text-center lg:text-left anim-fade-up">
+      <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/20 rounded-full px-4 py-1.5 text-brand text-xs font-semibold mb-5 tracking-wider uppercase"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Nagpur, Maharashtra
+      </div>
+      <h1 id="el-hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-900 text-white leading-tight mb-5" style="font-family:Outfit,sans-serif;">Affordable <span class="text-brand">Self Drive</span> Car Rental in Nagpur</h1>
+      <p id="el-hero-subtitle" class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">Enjoy complete freedom to travel at your own pace with clean, well-maintained cars. Flexible rental plans &amp; hassle-free booking.</p>
+      <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"><a href="#contact" class="px-8 py-3.5 bg-brand text-white font-bold rounded-full hover:bg-brand-dark transition-all pulse-glow text-sm flex items-center gap-2"> <i data-lucide="phone" class="w-4 h-4"></i> Book Now </a> <a id="hero-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 border border-green-500/40 text-green-400 font-bold rounded-full hover:bg-green-500/10 transition-all text-sm flex items-center gap-2">
+        <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg> WhatsApp Us </a>
+      </div>
+      <div class="flex items-center gap-8 mt-10 justify-center lg:justify-start">
+       <div class="text-center">
+        <span class="text-2xl font-800 text-white">500+</span>
+        <p class="text-xs text-gray-500 mt-1">Happy Customers</p>
+       </div>
+       <div class="w-px h-10 bg-white/10"></div>
+       <div class="text-center">
+        <span class="text-2xl font-800 text-white">50+</span>
+        <p class="text-xs text-gray-500 mt-1">Cars Available</p>
+       </div>
+       <div class="w-px h-10 bg-white/10"></div>
+       <div class="text-center">
+        <span class="text-2xl font-800 text-white">4.8⭐</span>
+        <p class="text-xs text-gray-500 mt-1">Rating</p>
+       </div>
+      </div>
+     </div>
+     <div class="flex-1 max-w-lg w-full anim-fade-up" style="animation-delay:0.3s;">
+      <div class="relative anim-float">
+       <div class="absolute inset-0 bg-brand/20 rounded-3xl blur-2xl"></div><img src="https://lh3.googleusercontent.com/grass-cs/ANxoTn0E70SYLvkw38Wirrlxelk62f3hqV_bHTi_ZfjVgzY0paWjN2FgKQKS8xfCltV5IKokZ7N7lAOI1rsD2a-xVJjcVVsMgKIQXUwt866tPrbUsL12Z0SLuIfHdrG_h_PzfnzE4lbOnv21zdK5=s1360-w1360-h1020-rw" alt="Go Self Drive Car" class="relative rounded-3xl w-full shadow-2xl" loading="lazy" onerror="console.error('Image failed:',this.src);this.style.background='linear-gradient(135deg,#1a1d24,#2a2d34)';this.alt='Image unavailable';">
+      </div>
+     </div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-surface to-transparent"></div>
+   </section><!-- FEATURES STRIP -->
+   <section class="bg-surface py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+     <div class="flex items-center gap-3 bg-card rounded-2xl p-4 border border-white/5 card-hover">
+      <div class="w-10 h-10 bg-brand/10 rounded-xl flex items-center justify-center shrink-0">
+       <i data-lucide="indian-rupee" class="w-5 h-5 text-brand"></i>
+      </div><span class="text-sm font-medium text-gray-300">Affordable Pricing</span>
+     </div>
+     <div class="flex items-center gap-3 bg-card rounded-2xl p-4 border border-white/5 card-hover">
+      <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center shrink-0">
+       <i data-lucide="sparkles" class="w-5 h-5 text-accent"></i>
+      </div><span class="text-sm font-medium text-gray-300">Clean Cars</span>
+     </div>
+     <div class="flex items-center gap-3 bg-card rounded-2xl p-4 border border-white/5 card-hover">
+      <div class="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center shrink-0">
+       <i data-lucide="zap" class="w-5 h-5 text-blue-400"></i>
+      </div><span class="text-sm font-medium text-gray-300">Easy Booking</span>
+     </div>
+     <div class="flex items-center gap-3 bg-card rounded-2xl p-4 border border-white/5 card-hover">
+      <div class="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center shrink-0">
+       <i data-lucide="map" class="w-5 h-5 text-purple-400"></i>
+      </div><span class="text-sm font-medium text-gray-300">Local &amp; Outstation</span>
+     </div>
+     <div class="flex items-center gap-3 bg-card rounded-2xl p-4 border border-white/5 card-hover col-span-2 sm:col-span-1">
+      <div class="w-10 h-10 bg-yellow-500/10 rounded-xl flex items-center justify-center shrink-0">
+       <i data-lucide="clock" class="w-5 h-5 text-yellow-400"></i>
+      </div><span class="text-sm font-medium text-gray-300">Flexible Duration</span>
+     </div>
+    </div>
+   </section><!-- ABOUT -->
+   <section id="about" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-12">
+     <div class="flex-1">
+      <div class="relative rounded-3xl overflow-hidden"><img src="https://lh3.googleusercontent.com/p/AF1QipOOdCfn1b3srNcz4EQazSkI6Mq-f6-W5lrDHTNi=s1360-w1360-h1020-rw" alt="Our Fleet" class="w-full rounded-3xl" loading="lazy" onerror="console.error('Image failed:',this.src);this.style.background='#1a1d24';this.alt='Image unavailable';">
+       <div class="absolute bottom-4 left-4 bg-brand rounded-2xl px-5 py-3 text-white font-bold text-sm shadow-lg"><span class="text-2xl font-800">5+</span><br><span class="text-xs font-normal opacity-80">Years of Service</span>
+       </div>
+      </div>
+     </div>
+     <div class="flex-1"><span class="text-brand font-semibold text-sm uppercase tracking-widest">About Us</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3 mb-5" style="font-family:Outfit,sans-serif;">Trusted Self Drive Car Rental Service</h2>
+      <p class="text-gray-400 leading-relaxed mb-6">At Go Self Drive Nagpur Car Rental, we provide safe, comfortable, and budget-friendly self-drive cars for all your travel needs. Whether for a few hours, a day, or a long trip, we offer flexible rental options with smooth service and customer support.</p>
+      <div class="grid grid-cols-2 gap-4">
+       <div class="flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-accent"></i><span class="text-sm text-gray-300">Verified Cars</span>
+       </div>
+       <div class="flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-accent"></i><span class="text-sm text-gray-300">24/7 Support</span>
+       </div>
+       <div class="flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-accent"></i><span class="text-sm text-gray-300">GPS Equipped</span>
+       </div>
+       <div class="flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-accent"></i><span class="text-sm text-gray-300">Free Cancellation</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- SERVICES -->
+   <section id="services" class="py-20 bg-card">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Our Services</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">Self Drive Car Rental Services</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-surface rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-14 h-14 bg-brand/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-brand/20 transition-colors">
+        <i data-lucide="calendar" class="w-7 h-7 text-brand"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Daily Car Rental</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Perfect for city travel, personal work, and day trips around Nagpur.</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
+        <i data-lucide="sunrise" class="w-7 h-7 text-accent"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Weekend Trips</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Comfortable cars for memorable road trips with friends &amp; family.</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
+        <i data-lucide="navigation" class="w-7 h-7 text-blue-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Outstation Travel</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Reliable vehicles for long journeys to any destination.</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-purple-500/20 transition-colors">
+        <i data-lucide="repeat" class="w-7 h-7 text-purple-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Monthly Rentals</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Flexible long-term rental options at discounted rates.</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-14 h-14 bg-yellow-500/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-500/20 transition-colors">
+        <i data-lucide="users" class="w-7 h-7 text-yellow-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Family &amp; Business</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Comfortable and convenient rides for every occasion.</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+        <i data-lucide="plane" class="w-7 h-7 text-red-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Airport Transfers</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Hassle-free self-drive pickup and drop for airport travel.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- WHY CHOOSE US -->
+   <section id="why" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-12">
+     <div class="flex-1"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Why Choose Us?</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3 mb-8" style="font-family:Outfit,sans-serif;">Your Trusted Travel Partner</h2>
+      <div class="space-y-5">
+       <div class="flex items-start gap-4 bg-card rounded-2xl p-5 border border-white/5 card-hover">
+        <div class="w-12 h-12 bg-brand/10 rounded-xl flex items-center justify-center shrink-0">
+         <i data-lucide="badge-indian-rupee" class="w-6 h-6 text-brand"></i>
+        </div>
+        <div>
+         <h4 class="font-bold text-white mb-1">Affordable Rental Rates</h4>
+         <p class="text-gray-400 text-sm">Best prices in Nagpur with no hidden charges.</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4 bg-card rounded-2xl p-5 border border-white/5 card-hover">
+        <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0">
+         <i data-lucide="shield-check" class="w-6 h-6 text-accent"></i>
+        </div>
+        <div>
+         <h4 class="font-bold text-white mb-1">Well-Maintained Vehicles</h4>
+         <p class="text-gray-400 text-sm">Every car is sanitized, serviced, and road-ready.</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4 bg-card rounded-2xl p-5 border border-white/5 card-hover">
+        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center shrink-0">
+         <i data-lucide="file-check" class="w-6 h-6 text-blue-400"></i>
+        </div>
+        <div>
+         <h4 class="font-bold text-white mb-1">Easy Documentation</h4>
+         <p class="text-gray-400 text-sm">Quick verification process to get you on the road fast.</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4 bg-card rounded-2xl p-5 border border-white/5 card-hover">
+        <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center shrink-0">
+         <i data-lucide="map-pin" class="w-6 h-6 text-purple-400"></i>
+        </div>
+        <div>
+         <h4 class="font-bold text-white mb-1">Flexible Pickup &amp; Drop</h4>
+         <p class="text-gray-400 text-sm">Convenient locations with doorstep delivery options.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="flex-1"><img src="https://lh3.googleusercontent.com/grass-cs/ANxoTn2tugEJPMzbapsrBGcHPPVODyrQLApe_jdInC65WgDYjSvhfzSd476f_smTzi0M3YTH1cDjZn84LboQXdQUgSZXefx2f6QQaFHP9X0CmpfRpI2zQvQULg3veepI4_ZPdOk1VAZLTku2_DLX=s1360-w1360-h1020-rw" alt="Why Choose Us" class="w-full rounded-3xl shadow-2xl" loading="lazy" onerror="console.error('Image failed:',this.src);this.style.background='#1a1d24';this.alt='Image unavailable';">
+     </div>
+    </div>
+   </section><!-- GALLERY -->
+   <section id="gallery" class="py-20 bg-card">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Gallery</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">Our Fleet</h2>
+     </div>
+     <div class="grid grid-cols-2 lg:grid-cols-3 gap-4" id="gallery-grid">
+     </div>
+    </div>
+   </section><!-- LIGHTBOX -->
+   <div class="lightbox" id="lightbox"><button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/70 hover:text-white z-10"><i data-lucide="x" class="w-8 h-8"></i></button> <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"><i data-lucide="chevron-left" class="w-6 h-6"></i></button> <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"><i data-lucide="chevron-right" class="w-6 h-6"></i></button> <img id="lightbox-img" src="" alt="Gallery Image" class="transition-opacity duration-300">
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-sm font-medium" id="lightbox-counter"></div>
+   </div><!-- HOW IT WORKS -->
+   <section id="how" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Process</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">How It Works</h2>
+     </div>
+     <div class="max-w-2xl mx-auto space-y-0">
+      <div class="relative pl-20 pb-12">
+       <div class="step-line"></div>
+       <div class="absolute left-0 top-0 w-14 h-14 bg-brand rounded-2xl flex items-center justify-center text-white font-800 text-xl shadow-lg shadow-brand/30" style="font-family:Outfit,sans-serif;">
+        1
+       </div>
+       <h3 class="text-xl font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Contact Us</h3>
+       <p class="text-gray-400 text-sm">Call or WhatsApp us to check car availability for your dates.</p>
+      </div>
+      <div class="relative pl-20 pb-12">
+       <div class="step-line"></div>
+       <div class="absolute left-0 top-0 w-14 h-14 bg-accent rounded-2xl flex items-center justify-center text-white font-800 text-xl shadow-lg shadow-accent/30" style="font-family:Outfit,sans-serif;">
+        2
+       </div>
+       <h3 class="text-xl font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Choose Your Car</h3>
+       <p class="text-gray-400 text-sm">Select a car based on your travel needs and budget.</p>
+      </div>
+      <div class="relative pl-20 pb-12">
+       <div class="step-line"></div>
+       <div class="absolute left-0 top-0 w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center text-white font-800 text-xl shadow-lg shadow-blue-500/30" style="font-family:Outfit,sans-serif;">
+        3
+       </div>
+       <h3 class="text-xl font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Verification</h3>
+       <p class="text-gray-400 text-sm">Submit required documents for a quick verification process.</p>
+      </div>
+      <div class="relative pl-20">
+       <div class="absolute left-0 top-0 w-14 h-14 bg-purple-500 rounded-2xl flex items-center justify-center text-white font-800 text-xl shadow-lg shadow-purple-500/30" style="font-family:Outfit,sans-serif;">
+        4
+       </div>
+       <h3 class="text-xl font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Drive &amp; Enjoy</h3>
+       <p class="text-gray-400 text-sm">Start your journey hassle-free with full freedom!</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- CONTACT / LEAD FORM -->
+   <section id="contact" class="py-20 bg-card">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="flex flex-col lg:flex-row gap-12">
+      <div class="flex-1"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Contact Us</span>
+       <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3 mb-6" style="font-family:Outfit,sans-serif;">Book Your Self Drive Car Today</h2>
+       <div class="space-y-5 mb-8">
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 bg-brand/10 rounded-xl flex items-center justify-center shrink-0">
+          <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+         </div>
+         <div>
+          <h4 class="font-bold text-white text-sm">Address</h4>
+          <p id="el-address" class="text-gray-400 text-sm">48, Hudkeshwar Rd, Manewada, Nagpur, Maharashtra 440034</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0">
+          <i data-lucide="phone" class="w-5 h-5 text-accent"></i>
+         </div>
+         <div>
+          <h4 class="font-bold text-white text-sm">Phone</h4><a id="el-phone-link" href="tel:8956360018" class="text-brand hover:underline text-sm">8956360018</a>
+         </div>
+        </div>
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-green-400" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+         </div>
+         <div>
+          <h4 class="font-bold text-white text-sm">WhatsApp</h4><a id="el-wa-link" href="https://wa.me/918956360018" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:underline text-sm">Chat on WhatsApp</a>
+         </div>
+        </div>
+       </div><img src="https://lh3.googleusercontent.com/grass-cs/ANxoTn1q9fJ5uFhl4aFLDPWLiglszCnWLrKmLfsnW3ouNKOoV99n1Haa77sRGv4C9Q2iGX2wZEx3yl-IprQw4wOZ4RFPM3fSk6y2UvveY0N6snxPuEm-QU4hV-XyJDy3LIXY3T2Y3lPctOOfOEw=s1360-w1360-h1020-rw" alt="Contact" class="hidden lg:block rounded-2xl w-full mt-4" loading="lazy" onerror="console.error('Image failed:',this.src);this.style.background='#111318';this.alt='Image unavailable';">
+      </div>
+      <div class="flex-1">
+       <form id="lead-form" class="bg-surface rounded-3xl p-6 sm:p-8 border border-white/5">
+        <h3 class="text-xl font-bold text-white mb-6" style="font-family:Outfit,sans-serif;">Send Enquiry via WhatsApp</h3>
+        <div class="space-y-4">
+         <div><label for="fname" class="block text-sm font-medium text-gray-400 mb-1.5">Full Name *</label> <input type="text" id="fname" required class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm" placeholder="Enter your name">
+         </div>
+         <div><label for="fphone" class="block text-sm font-medium text-gray-400 mb-1.5">Phone Number *</label> <input type="tel" id="fphone" required class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm" placeholder="Enter your phone number">
+         </div>
+         <div><label for="fcar" class="block text-sm font-medium text-gray-400 mb-1.5">Car Type</label> <select id="fcar" class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white text-sm"> <option value="">Select car type</option> <option>Hatchback</option> <option>Sedan</option> <option>SUV</option> <option>MPV / MUV</option> </select>
+         </div>
+         <div class="grid grid-cols-2 gap-4">
+          <div><label for="fpickup" class="block text-sm font-medium text-gray-400 mb-1.5">Pickup Date</label> <input type="date" id="fpickup" class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white text-sm">
+          </div>
+          <div><label for="freturn" class="block text-sm font-medium text-gray-400 mb-1.5">Return Date</label> <input type="date" id="freturn" class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white text-sm">
+          </div>
+         </div>
+         <div><label for="ftrip" class="block text-sm font-medium text-gray-400 mb-1.5">Trip Type</label> <select id="ftrip" class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white text-sm"> <option value="">Select trip type</option> <option>Local / City</option> <option>Outstation</option> <option>Airport Transfer</option> <option>Weekend Trip</option> </select>
+         </div>
+         <div><label for="fmsg" class="block text-sm font-medium text-gray-400 mb-1.5">Message</label> <textarea id="fmsg" rows="3" class="w-full bg-card border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm resize-none" placeholder="Any special requirements..."></textarea>
+         </div><button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm">
+          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg> Send Enquiry on WhatsApp </button>
+        </div>
+        <div id="form-toast" class="hidden mt-4 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl px-4 py-3 text-sm text-center font-medium"></div>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- LOCAL SEO: SERVICE AREAS -->
+   <section class="py-20 bg-card">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Service Coverage</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">Self Drive Car Rental Across Nagpur</h2>
+      <p class="text-gray-400 text-base mt-4 max-w-2xl mx-auto">Serving all major areas and neighborhoods in Nagpur with convenient pickup and drop-off locations</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Sitabuldi</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Central Nagpur's prime business district</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Dharampeth</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Shopping &amp; entertainment hub</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Sadar</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Historic city center area</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Itwari</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Residential &amp; commercial zone</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Ramdaspeth</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Business &amp; office district</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Manewada</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Residential suburb area</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Wardhaman Nagar</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Upscale residential area</p>
+      </div>
+      <div class="bg-surface rounded-2xl p-5 border border-white/5 hover:border-brand/30 transition-colors card-hover">
+       <div class="flex items-center gap-3 mb-3">
+        <i data-lucide="map-pin" class="w-5 h-5 text-brand"></i>
+        <h3 class="font-bold text-white text-sm">Airport Transfer</h3>
+       </div>
+       <p class="text-gray-400 text-xs">Dr. Babasaheb Ambedkar Int'l</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- LOCAL SEO: NEARBY ATTRACTIONS & OUTSTATION TRIPS -->
+   <section class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Popular Destinations</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">Explore Nagpur &amp; Surrounding Areas</h2>
+      <p class="text-gray-400 text-base mt-4 max-w-2xl mx-auto">Book your self-drive car for weekend trips and outstation journeys to these popular destinations</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-12 h-12 bg-brand/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand/20 transition-colors">
+        <i data-lucide="landmark" class="w-6 h-6 text-brand"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Deekshabhoomi, Nagpur</h3>
+       <p class="text-gray-400 text-sm leading-relaxed mb-3">Historic monument &amp; religious site attracting thousands of visitors yearly.</p><span class="text-brand text-xs font-semibold">10 mins from Sitabuldi</span>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+        <i data-lucide="tree" class="w-6 h-6 text-accent"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Gorewada Zoo</h3>
+       <p class="text-gray-400 text-sm leading-relaxed mb-3">Wildlife sanctuary with diverse animal species, perfect for family outings.</p><span class="text-brand text-xs font-semibold">20 mins from city center</span>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+        <i data-lucide="waves" class="w-6 h-6 text-blue-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Nagpur Lake</h3>
+       <p class="text-gray-400 text-sm leading-relaxed mb-3">Serene lakeside destination for evening drives and peaceful getaways.</p><span class="text-brand text-xs font-semibold">15 mins from Itwari</span>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+        <i data-lucide="mountain" class="w-6 h-6 text-purple-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Umred Safari Park</h3>
+       <p class="text-gray-400 text-sm leading-relaxed mb-3">Off-road safari adventure near Nagpur, perfect for wildlife lovers.</p><span class="text-brand text-xs font-semibold">45 mins drive</span>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-yellow-500/20 transition-colors">
+        <i data-lucide="sunset" class="w-6 h-6 text-yellow-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">Kamptee Outskirts</h3>
+       <p class="text-gray-400 text-sm leading-relaxed mb-3">Scenic drives through farmland and small towns ideal for weekend trips.</p><span class="text-brand text-xs font-semibold">30 mins drive</span>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover group">
+       <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
+        <i data-lucide="building-2" class="w-6 h-6 text-red-400"></i>
+       </div>
+       <h3 class="text-lg font-bold text-white mb-2" style="font-family:Outfit,sans-serif;">VNIT Campus Tour</h3>
+       <p class="text-gray-400 text-sm leading-relaxed mb-3">Educational campus with beautiful architecture and scenic surroundings.</p><span class="text-brand text-xs font-semibold">10 mins from Itwari</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- TESTIMONIALS -->
+   <section class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">Customer Reviews</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">What Our Customers Say</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover">
+       <div class="flex items-center gap-1 mb-4"><i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+       </div>
+       <p class="text-gray-400 text-sm leading-relaxed mb-5">"Amazing service! The car was clean, well-maintained, and the entire booking process was hassle-free. Highly recommended for anyone looking for affordable self-drive rentals."</p>
+       <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-brand/20 rounded-full flex items-center justify-center">
+         <i data-lucide="user" class="w-5 h-5 text-brand"></i>
+        </div>
+        <div>
+         <p class="text-white text-sm font-semibold">Rajesh Kumar</p>
+         <p class="text-gray-500 text-xs">Verified Customer</p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover">
+       <div class="flex items-center gap-1 mb-4"><i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+       </div>
+       <p class="text-gray-400 text-sm leading-relaxed mb-5">"Perfect for our family trip! The support team was available 24/7 and helped us whenever we needed. The car performed great on our outstation journey."</p>
+       <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+         <i data-lucide="user" class="w-5 h-5 text-accent"></i>
+        </div>
+        <div>
+         <p class="text-white text-sm font-semibold">Priya Sharma</p>
+         <p class="text-gray-500 text-xs">Verified Customer</p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-card rounded-2xl p-6 border border-white/5 card-hover">
+       <div class="flex items-center gap-1 mb-4"><i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i> <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-yellow-400"></i>
+       </div>
+       <p class="text-gray-400 text-sm leading-relaxed mb-5">"Great experience! The pricing is transparent and the cars are equipped with all modern amenities. Will definitely rent again for my next trip."</p>
+       <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
+         <i data-lucide="user" class="w-5 h-5 text-blue-400"></i>
+        </div>
+        <div>
+         <p class="text-white text-sm font-semibold">Arun Patel</p>
+         <p class="text-gray-500 text-xs">Verified Customer</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- FAQ -->
+   <section class="py-20 bg-card">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+     <div class="text-center mb-14"><span class="text-brand font-semibold text-sm uppercase tracking-widest">FAQ</span>
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mt-3" style="font-family:Outfit,sans-serif;">Frequently Asked Questions</h2>
+     </div>
+     <div class="space-y-4">
+      <div class="bg-surface rounded-2xl border border-white/5 overflow-hidden accordion-item"><button class="w-full px-6 py-4 flex items-center justify-between text-white font-semibold hover:bg-white/5 transition-colors accordion-btn"> <span>What documents do I need for car rental?</span> <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i> </button>
+       <div class="hidden accordion-content px-6 pb-4">
+        <p class="text-gray-400 text-sm leading-relaxed">You'll need a valid driving license, a copy of your Aadhar or any government ID, and a proof of address. We also accept your passport for outstation trips.</p>
+       </div>
+      </div>
+      <div class="bg-surface rounded-2xl border border-white/5 overflow-hidden accordion-item"><button class="w-full px-6 py-4 flex items-center justify-between text-white font-semibold hover:bg-white/5 transition-colors accordion-btn"> <span>What is included in the rental price?</span> <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i> </button>
+       <div class="hidden accordion-content px-6 pb-4">
+        <p class="text-gray-400 text-sm leading-relaxed">Our rental price includes basic insurance, GPS navigation, 24/7 roadside assistance, and free fuel. Additional services like chauffeur options are available on request.</p>
+       </div>
+      </div>
+      <div class="bg-surface rounded-2xl border border-white/5 overflow-hidden accordion-item"><button class="w-full px-6 py-4 flex items-center justify-between text-white font-semibold hover:bg-white/5 transition-colors accordion-btn"> <span>Can I cancel my booking?</span> <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i> </button>
+       <div class="hidden accordion-content px-6 pb-4">
+        <p class="text-gray-400 text-sm leading-relaxed">Yes! We offer free cancellation up to 24 hours before your booking date. For cancellations within 24 hours, a 50% refund will be applicable.</p>
+       </div>
+      </div>
+      <div class="bg-surface rounded-2xl border border-white/5 overflow-hidden accordion-item"><button class="w-full px-6 py-4 flex items-center justify-between text-white font-semibold hover:bg-white/5 transition-colors accordion-btn"> <span>Is there a minimum age requirement?</span> <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i> </button>
+       <div class="hidden accordion-content px-6 pb-4">
+        <p class="text-gray-400 text-sm leading-relaxed">Yes, the driver must be at least 18 years old with a valid driving license for at least 1 year. For some premium vehicles, the minimum age requirement is 21.</p>
+       </div>
+      </div>
+      <div class="bg-surface rounded-2xl border border-white/5 overflow-hidden accordion-item"><button class="w-full px-6 py-4 flex items-center justify-between text-white font-semibold hover:bg-white/5 transition-colors accordion-btn"> <span>What if I exceed the mileage limit?</span> <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i> </button>
+       <div class="hidden accordion-content px-6 pb-4">
+        <p class="text-gray-400 text-sm leading-relaxed">Each rental includes unlimited kilometers for outstation trips. For local rentals, excess kilometers are charged at ₹12 per kilometer. Unlimited packages are available at a premium.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- CTA SECTION -->
+   <section class="py-20 bg-surface">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+     <div class="bg-gradient-to-r from-brand/20 via-accent/10 to-brand/20 rounded-3xl p-8 sm:p-12 border border-brand/20 text-center">
+      <h2 class="text-3xl sm:text-4xl font-800 text-white mb-5" style="font-family:Outfit,sans-serif;">Ready to Hit the Road?</h2>
+      <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">Don't wait! Book your self-drive car today and experience the freedom of traveling at your own pace across Nagpur.</p>
+      <div class="flex flex-col sm:flex-row items-center gap-4 justify-center"><a href="#contact" class="px-8 py-3.5 bg-brand text-white font-bold rounded-full hover:bg-brand-dark transition-all pulse-glow text-sm flex items-center gap-2"> <i data-lucide="calendar" class="w-4 h-4"></i> Book Now </a> <a id="cta-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 border border-green-500/40 text-green-400 font-bold rounded-full hover:bg-green-500/10 transition-all text-sm flex items-center gap-2">
+        <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg> Chat on WhatsApp </a>
+      </div>
+     </div>
+    </div>
+   </section><!-- FOOTER -->
+   <footer class="bg-card border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+     <div class="grid md:grid-cols-3 gap-12 mb-12">
+      <!-- Column 1: Brand -->
+      <div>
+       <div class="flex items-center gap-2 mb-4"><img src="https://instagram.fpat2-8.fna.fbcdn.net/v/t51.82787-19/673858535_380882_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&amp;_nc_ht=instagram.fpat2-8.fna.fbcdn.net&amp;_nc_cat=103&amp;_nc_oc=Q6cZ2gHsPHr_cU5AkbrG4FYADBSacBHp49IGArF4lTvNwhI3tjT_8uBGRa8FnRfg6P-ftqs&amp;_nc_ohc=DjhJsHIAgXUQ7kNvwHLXg13&amp;_nc_gid=W3cmgEar6XrvnOfCbWKPMw&amp;edm=AP4sbd4BAAAA&amp;ccb=7-5&amp;oh=00_Af6pwomGEqmsKGSvCo_sQGqnoI7tjDeBUeC48oaPmMO7nQ&amp;oe=6A0CE30F&amp;_nc_sid=7a9f4b" alt="Go Self Drive Nagpur Logo" class="w-10 h-10 rounded-full object-cover shadow-lg" loading="lazy" onerror="console.error('Logo failed:', this.src); this.style.background='#FF6B00'; this.alt='Logo unavailable';"><span class="font-bold text-white text-base" style="font-family:Outfit,sans-serif;">Go Self Drive</span>
+       </div>
+       <p class="text-gray-400 text-sm leading-relaxed mb-4">Your trusted self-drive car rental partner in Nagpur. Drive with freedom, comfort, and confidence.</p>
+       <div class="flex items-center gap-3">
+        <a id="footer-wa" href="https://wa.me/918956360018" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-green-500/10 hover:bg-green-500/20 rounded-lg flex items-center justify-center text-green-400 transition-colors">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+         </svg></a> <a href="tel:8956360018" class="w-10 h-10 bg-brand/10 hover:bg-brand/20 rounded-lg flex items-center justify-center text-brand transition-colors"> <i data-lucide="phone" class="w-5 h-5"></i> </a> <a href="#contact" class="w-10 h-10 bg-accent/10 hover:bg-accent/20 rounded-lg flex items-center justify-center text-accent transition-colors"> <i data-lucide="mail" class="w-5 h-5"></i> </a>
+       </div>
+      </div><!-- Column 2: Quick Links -->
+      <div>
+       <h4 class="font-bold text-white mb-5 text-sm" style="font-family:Outfit,sans-serif;">Quick Links</h4>
+       <ul class="space-y-3 text-sm">
+        <li><a href="#about" class="text-gray-400 hover:text-brand transition-colors">About Us</a></li>
+        <li><a href="#services" class="text-gray-400 hover:text-brand transition-colors">Our Services</a></li>
+        <li><a href="#gallery" class="text-gray-400 hover:text-brand transition-colors">Gallery</a></li>
+        <li><a href="#how" class="text-gray-400 hover:text-brand transition-colors">How It Works</a></li>
+        <li><a href="#contact" class="text-gray-400 hover:text-brand transition-colors">Contact Us</a></li>
+       </ul>
+      </div><!-- Column 3: Contact Info -->
+      <div>
+       <h4 class="font-bold text-white mb-5 text-sm" style="font-family:Outfit,sans-serif;">Get In Touch</h4>
+       <div class="space-y-4 text-sm">
+        <div class="flex items-start gap-3">
+         <i data-lucide="map-pin" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+         <div>
+          <p class="text-gray-400 leading-relaxed" id="footer-address">48, Hudkeshwar Rd, Manewada, Nagpur, Maharashtra 440034</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-3">
+         <i data-lucide="phone" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+         <div>
+          <a id="footer-phone" href="tel:8956360018" class="text-gray-400 hover:text-brand transition-colors">8956360018</a>
+         </div>
+        </div>
+        <div class="flex items-start gap-3">
+         <i data-lucide="clock" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+         <div>
+          <p class="text-gray-400">24/7 Available</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Divider -->
+     <div class="border-t border-white/5 pt-8"></div><!-- Bottom -->
+     <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-xs">© 2025 Go Self Drive Nagpur Car Rental. All rights reserved.</p>
+      <p class="text-gray-500 text-xs">Design &amp; Development by <a href="https://www.gmbguru.in" target="_blank" rel="noopener noreferrer" class="text-brand hover:underline font-semibold">GMB Guru</a></p>
+     </div>
+    </div>
+   </footer><!-- FLOATING WHATSAPP --> <a id="wa-float-btn" href="https://wa.me/918956360018?text=Hi%2C%20I%20want%20to%20book%20a%20self-drive%20car%20in%20Nagpur." target="_blank" rel="noopener noreferrer" class="wa-float w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 transition-transform hover:scale-110">
+    <svg class="w-7 h-7 text-white" fill="currentColor" viewbox="0 0 24 24">
+     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg></a>
+  </div>
+  <script>
+// Config
+const defaultConfig = {
+  hero_title: 'Affordable <span class="text-brand">Self Drive</span> Car Rental in Nagpur',
+  hero_subtitle: 'Enjoy complete freedom to travel at your own pace with clean, well-maintained cars. Flexible rental plans & hassle-free booking.',
+  phone_number: '8956360018',
+  address_text: '48, Hudkeshwar Rd, Manewada, Nagpur, Maharashtra 440034',
+  service_areas: 'Sitabuldi, Dharampeth, Sadar, Itwari, Ramdaspeth, Manewada, Wardhaman Nagar, Airport',
+  business_hours: '24/7 Available',
+  background_color: '#111318',
+  surface_color: '#1A1D24',
+  text_color: '#E5E7EB',
+  primary_action_color: '#FF6B00',
+  secondary_action_color: '#00D4AA',
+  font_family: 'Outfit',
+  font_size: 16
+};
+
+// Gallery images
+const galleryImages = [
+  'https://lh3.googleusercontent.com/grass-cs/ANxoTn0E70SYLvkw38Wirrlxelk62f3hqV_bHTi_ZfjVgzY0paWjN2FgKQKS8xfCltV5IKokZ7N7lAOI1rsD2a-xVJjcVVsMgKIQXUwt866tPrbUsL12Z0SLuIfHdrG_h_PzfnzE4lbOnv21zdK5=s1360-w1360-h1020-rw',
+  'https://lh3.googleusercontent.com/p/AF1QipOOdCfn1b3srNcz4EQazSkI6Mq-f6-W5lrDHTNi=s1360-w1360-h1020-rw',
+  'https://lh3.googleusercontent.com/grass-cs/ANxoTn2tugEJPMzbapsrBGcHPPVODyrQLApe_jdInC65WgDYjSvhfzSd476f_smTzi0M3YTH1cDjZn84LboQXdQUgSZXefx2f6QQaFHP9X0CmpfRpI2zQvQULg3veepI4_ZPdOk1VAZLTku2_DLX=s1360-w1360-h1020-rw',
+  'https://lh3.googleusercontent.com/grass-cs/ANxoTn1q9fJ5uFhl4aFLDPWLiglszCnWLrKmLfsnW3ouNKOoV99n1Haa77sRGv4C9Q2iGX2wZEx3yl-IprQw4wOZ4RFPM3fSk6y2UvveY0N6snxPuEm-QU4hV-XyJDy3LIXY3T2Y3lPctOOfOEw=s1360-w1360-h1020-rw',
+  'https://lh3.googleusercontent.com/grass-cs/ANxoTn2sfiqwt0bI6Vm-S0s9zoZyGC8tBULQgILgEIJl9dt3c4JeK4cnsTwNZxj9WvePQC_yZmDTYrMS-EX3s4bw4D1xJ1YLvP1FSWQfH_pjO9F7iQ25n4VEQNmZSJpxYJa1TTvvJFkK7BA1ZWU=s1360-w1360-h1020-rw',
+  'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGqrX30ud0Qcjbj7W4-BOcXxVpjG2b1wZ-hmTmLZHI3wYo6QNjrsuJtzw5-g8XaIJUgxHX-uDiuH10WW6kPP8_LVe193FhyeijrAQ2stJTp1_vARzzD9esQ99PCVcjdlkZGuI9VLiQRO6k=s1360-w1360-h1020-rw'
+];
+
+let currentLightboxIndex = 0;
+
+// Build gallery
+function buildGallery() {
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = '';
+  galleryImages.forEach((src, i) => {
+    const div = document.createElement('div');
+    div.className = 'overflow-hidden rounded-2xl';
+    div.innerHTML = `<img src="${src}" alt="Car ${i+1}" class="gallery-img w-full h-48 sm:h-56 lg:h-64 object-cover rounded-2xl" loading="lazy" onclick="openLightbox(${i})" onerror="console.error('Image failed:',this.src);this.style.background='#1a1d24';this.alt='Image unavailable';">`;
+    grid.appendChild(div);
+  });
+}
+
+function openLightbox(i) {
+  currentLightboxIndex = i;
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = galleryImages[i];
+  document.getElementById('lightbox-counter').textContent = `${i+1} / ${galleryImages.length}`;
+  lb.classList.add('active');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+function nextImage() { openLightbox((currentLightboxIndex + 1) % galleryImages.length); }
+function prevImage() { openLightbox((currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length); }
+
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
+
+// Mobile nav
+document.getElementById('mob-toggle').addEventListener('click', () => {
+  document.getElementById('mob-menu').classList.toggle('hidden');
+});
+function closeMob() { document.getElementById('mob-menu').classList.add('hidden'); }
+
+// Navbar scroll
+const wrapper = document.getElementById('app-wrapper');
+wrapper.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (wrapper.scrollTop > 50) {
+    nav.style.background = 'rgba(17,19,24,0.95)';
+    nav.style.backdropFilter = 'blur(12px)';
+    nav.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+    nav.style.borderBottom = 'none';
+  }
+});
+
+// WhatsApp lead form
+function getPhoneNumber() {
+  return (window.elementSdk && window.elementSdk.config && window.elementSdk.config.phone_number) || defaultConfig.phone_number;
+}
+
+document.getElementById('lead-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const car = document.getElementById('fcar').value;
+  const pickup = document.getElementById('fpickup').value;
+  const ret = document.getElementById('freturn').value;
+  const trip = document.getElementById('ftrip').value;
+  const msg = document.getElementById('fmsg').value.trim();
+
+  if (!name || !phone) return;
+
+  let text = `🚗 *New Car Rental Enquiry*\n\n`;
+  text += `👤 *Name:* ${name}\n`;
+  text += `📞 *Phone:* ${phone}\n`;
+  if (car) text += `🚘 *Car Type:* ${car}\n`;
+  if (pickup) text += `📅 *Pickup:* ${pickup}\n`;
+  if (ret) text += `📅 *Return:* ${ret}\n`;
+  if (trip) text += `🗺 *Trip:* ${trip}\n`;
+  if (msg) text += `💬 *Message:* ${msg}\n`;
+
+  const waUrl = `https://wa.me/91${getPhoneNumber()}?text=${encodeURIComponent(text)}`;
+  window.open(waUrl, '_blank');
+
+  const toast = document.getElementById('form-toast');
+  toast.textContent = '✅ Redirecting to WhatsApp...';
+  toast.classList.remove('hidden');
+  setTimeout(() => toast.classList.add('hidden'), 4000);
+});
+
+// Update WhatsApp links based on config
+function updateWaLinks(phone) {
+  const p = phone || defaultConfig.phone_number;
+  document.getElementById('hero-wa-btn').href = `https://wa.me/91${p}?text=${encodeURIComponent('Hi, I want to book a self-drive car in Nagpur.')}`;
+  document.getElementById('wa-float-btn').href = `https://wa.me/91${p}?text=${encodeURIComponent('Hi, I want to book a self-drive car in Nagpur.')}`;
+  document.getElementById('cta-wa-btn').href = `https://wa.me/91${p}?text=${encodeURIComponent('Hi, I want to book a self-drive car in Nagpur.')}`;
+  document.getElementById('el-wa-link').href = `https://wa.me/91${p}`;
+  document.getElementById('el-phone-link').href = `tel:${p}`;
+  document.getElementById('el-phone-link').textContent = p;
+}
+
+// FAQ Accordion
+document.querySelectorAll('.accordion-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.accordion-item');
+    const content = item.querySelector('.accordion-content');
+    const icon = btn.querySelector('i');
+    
+    // Close other accordions
+    document.querySelectorAll('.accordion-item').forEach(otherItem => {
+      if (otherItem !== item) {
+        otherItem.querySelector('.accordion-content').classList.add('hidden');
+        otherItem.querySelector('i').style.transform = 'rotate(0deg)';
+      }
+    });
+    
+    // Toggle current
+    content.classList.toggle('hidden');
+    icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+    icon.style.transition = 'transform 0.3s ease';
+  });
+});
+
+// Element SDK
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+      const c = { ...defaultConfig, ...config };
+      document.getElementById('el-hero-title').innerHTML = c.hero_title;
+      document.getElementById('el-hero-subtitle').textContent = c.hero_subtitle;
+      document.getElementById('el-address').textContent = c.address_text;
+      document.getElementById('footer-address').textContent = c.address_text;
+      document.getElementById('footer-phone').href = `tel:${c.phone_number}`;
+      document.getElementById('footer-phone').textContent = c.phone_number;
+      updateWaLinks(c.phone_number);
+
+      // Colors
+      document.documentElement.style.setProperty('--bg', c.background_color);
+      document.body.style.backgroundColor = c.background_color;
+      document.querySelectorAll('.bg-surface').forEach(el => el.style.backgroundColor = c.background_color);
+      document.querySelectorAll('.bg-card').forEach(el => el.style.backgroundColor = c.surface_color);
+      document.body.style.color = c.text_color;
+
+      // Font
+      const hFont = `${c.font_family}, Outfit, sans-serif`;
+      document.documentElement.style.setProperty('--heading-font', c.font_family);
+      document.querySelectorAll('h1,h2,h3,h4').forEach(el => el.style.fontFamily = hFont);
+
+      // Font size
+      const bs = c.font_size || 16;
+      document.querySelectorAll('p, span, a, label, option').forEach(el => {
+        if (!el.closest('h1,h2,h3,h4')) el.style.fontSize = `${bs * 0.875}px`;
+      });
+      document.querySelectorAll('h1').forEach(el => el.style.fontSize = `${bs * 3}px`);
+      document.querySelectorAll('h2').forEach(el => el.style.fontSize = `${bs * 2}px`);
+      document.querySelectorAll('h3').forEach(el => el.style.fontSize = `${bs * 1.25}px`);
+    },
+    mapToCapabilities: (config) => {
+      const c = { ...defaultConfig, ...config };
+      return {
+        recolorables: [
+          { get: () => c.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => c.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => c.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => c.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+          { get: () => c.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => c.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => c.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      };
+    },
+    mapToEditPanelValues: (config) => {
+      const c = { ...defaultConfig, ...config };
+      return new Map([
+        ['hero_title', c.hero_title],
+        ['hero_subtitle', c.hero_subtitle],
+        ['phone_number', c.phone_number],
+        ['address_text', c.address_text],
+        ['service_areas', c.service_areas],
+        ['business_hours', c.business_hours]
+      ]);
+    }
+  });
+}
+
+// Init
+buildGallery();
+updateWaLinks(defaultConfig.phone_number);
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fc2228697cef647',t:'MTc3ODg0ODAyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
